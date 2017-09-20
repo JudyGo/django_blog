@@ -10,7 +10,7 @@
                                                     datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
           <span class="post-author"><a href="#">{{ post.author }}</a></span>
           <span class="comments-link"><a href="#">4 评论</a></span>
-          <span class="views-count"><a href="#">588 阅读</a></span>
+          <span class="views-count"><a href="#">{{ post.views }}阅读 </a></span>
         </div>
       </header>
       <div class="entry-content clearfix">
@@ -63,5 +63,10 @@
                 {% endfor %}
             </ul>
         </div>
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144989"></script>
+        <!-- UY END -->
     </section>
+
 {% endblock main %}

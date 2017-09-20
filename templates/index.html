@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block main %}
+    {% if error_msg %}
+        <p>{{ error }}</p>
+    {% endif %}
     {% for post in post_list %}
         <article class="post post-{{ post.pk }}">
            <h1 class="entry-title">
@@ -11,8 +14,8 @@
                 <span class="post-date"><a href="#"><time class="entry-date"
                                                             datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
                 <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                <span class="comments-link"><a href="#">4 评论</a></span>
-                <span class="views-count"><a href="#">588 阅读</a></span>
+                <span class="comments-link"><a href="#">{{post.comment_set.count}}</a></span>
+                <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
             </div>
             <div class="entry-content clearfix">
                 <p>{{ post.excerpt }}</p>
@@ -20,22 +23,23 @@
                      <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
                 </div>
             </div>
+
         </article>
     {% empty %}
         <div class="no-post">暂时没有文章</div>
     {% endfor %}
-
     <div class="pagination">
-        <ul>
-            <li><a href="">1</a></li>
-            <li><a href="">...</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li class="current"><a href="">6</a></li>
-            <li><a href="">7</a></li>
-            <li><a href="">8</a></li>
-            <li><a href="">...</a></li>
-            <li><a href="">11</a></li>
-        </ul>
+        {% if post_list.has_previous %}
+        <!-- 如果当前页还有上一页，显示一个上一页的按钮 -->
+        <a href="?page={{ post_list.previous_page_number }}">上一页</a>
+        {% endif %}
+        <span class="current">
+        <!-- 显示当前页面信息 -->
+        第 {{ post_list.number }} 页 / 共 {{ post_list.paginator.num_pages }} 页
+        </span>
+        {% if post_list.has_next %}
+        <!-- 如果当前页还有上下页，显示一个下一页的按钮 -->
+        <a href="?page={{ post_list.next_page_number }}">下一页</a>
+        {% endif %}
     </div>
 {% endblock %}
