@@ -9,7 +9,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # 主页面
 def index(request):
-    post_list = Post.objects.all().order_by('-created_time')
+    post_list =      Post.objects.all().order_by('-created_time')
     paginator = Paginator(post_list,10)
     page = request.GET.get('page')
     try:
